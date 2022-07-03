@@ -1,0 +1,66 @@
+{% extends('base.html.twig') %}
+
+{% block body %}
+	<main class="w-full flex-grow p-6">
+    <h1 class="w-full text-3xl text-black pb-6">Search Form</h1>
+
+	    <div class="flex flex-wrap">
+	        <div class="w-full lg:w-1/2 my-6 pr-0 lg:pr-2">
+	            <div class="leading-loose">
+	                <form id="search_form" method="post" enctype="multipart/form-data" class="p-10 bg-white rounded shadow-xl" autocomplete="off">
+	                    
+	                    <div class="mt-2">
+	                        <label class="block text-sm text-gray-600" for="company_symbol">Company Symbol</label>
+	                        <select class="w-full px-5 py-2 text-gray-700 bg-gray-200 rounded" id="company_symbol" name="company_symbol" required="" aria-label="company_symbol">
+	                            <option value="AAL">
+                                    American Airlines Group, Inc.
+                                </option>
+                                <option value="AAPL">
+                                    Apple Inc.
+                                </option>
+                                <option value="AAWW">
+                                    Atlas Air Worldwide Holdings
+                                </option>
+                                <option value="ADSK">
+                                    Autodesk, Inc.
+                                </option>
+                                <option value="ADVS">
+                                    Advent Software, Inc.
+                                </option>
+                                <option value="AETI">
+                                    American Electric Technologies, Inc.
+                                </option>
+                                <option value="AFAM">
+                                    Almost Family Inc
+                                </option>
+                                <option value="AFCB">
+                                    Athens Bancshares Corporation
+                                </option>
+                                <option value="AGIO">
+                                    Agios Pharmaceuticals, Inc.
+                                </option>
+                                <option value="AINV">
+                                    Apollo Investment Corporation
+                                </option>
+                                <option value="AIRT">
+                                    Air T, Inc.
+                                </option>
+                                <option value="ALXA">
+                                    Alexza Pharmaceuticals, Inc.
+                                </option>
+	                        </select>
+	                    </div>
+	                    <div class="mt-2">
+	                        <label class="block text-sm text-gray-600" for="start_date">Start Date</label>
+	                        <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="start_date" name="start_date" type="text" required="" placeholder="Start Date" aria-label="start_date">
+	                    </div>
+	                    <div class="mt-2">
+	                        <label class="block text-sm text-gray-600" for="end_date">End Date</label>
+	                        <input class="w-full px-5 py-1 text-gray-700 bg-gray-200 rounded" id="end_date" name="end_date" type="text" required="" placeholder="End Date" aria-label="end_date">
+	                    </div>
+	                </form>
+	            </div>
+	        </div>
+	    </div>
+	</main>
+{% endblock %}

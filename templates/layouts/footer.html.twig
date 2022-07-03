@@ -1,0 +1,61 @@
+</div>
+<footer class="w-full bg-white text-right p-4">
+
+</footer>
+</div>
+
+</div>
+
+<!-- AlpineJS -->
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+<!-- Font Awesome -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" integrity="sha256-KzZiKy0DWYsnwMF+X1DvQngQ2/FxF7MF3Ff72XcpuPs=" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+<!-- Datepicker code started -->
+<script>
+	$('#start_date').datepicker({
+        dateFormat: "yy-mm-dd"
+    });
+    $('#end_date').datepicker({
+        dateFormat: "yy-mm-dd"
+    });
+</script>
+<!-- Datepicker code ended -->
+
+<!-- Get data through AJAX -->
+<script>
+	$('#company_symbol, #start_date, #end_date').change(function(){
+        var companySymbol = $('#company_symbol').val();
+        var startDate = $('#start_date').val();
+        var endDate = $('#end_date').val();
+
+        if(companySymbol != '' && startDate != '' && endDate != '')
+        {
+        	searchHistoricalData(companySymbol, startDate, endDate)
+        }
+    });
+
+    function searchHistoricalData(companySymbol, startDate, endDate)
+    {
+		$.ajax({
+			url: "{{ app.request.uri }}index.php/search",
+			type: "get",
+			data: {
+				companySymbol: companySymbol, 
+				startDate: startDate, 
+				endDate: endDate
+			},
+			success: function(response) {
+				console.log(response, 'success');
+			},
+			error: function(xhr) {
+				console.log(xhr, 'failure');
+			}
+		});
+    }
+    
+</script>
