@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use App\Helpers\YHFinance;
 
 class SearchController extends AbstractController
 {
@@ -22,11 +23,41 @@ class SearchController extends AbstractController
      */
     public function search(Request $request)
     {
-        //$request->get('startDate');
-        //$request->get('endDate');
+        $dateRangeData = [];
 
-        return $this->json([
-        	$request->get('companySymbol')
-        ]);
+        try
+        {
+            $historicalData = YHFinance::getHistoricalData( $request->get('companySymbol') );
+            $dateRangeData = self::__filterDataByDateRange( $historicalData, $request->get('startDate'), $request->get('endDate') );
+        }
+        catch (\Exception $e)
+        {
+            #log exception here
+        }
+        finally
+        {
+            return $this->json([
+                $dateRangeData
+            ]);
+        }
+    }
+
+    private static function __filterDataByDateRange( $historicalData, $startDate, $endDate )
+    {
+        $filteredHistoricalData = [];
+        if(isset($historicalData['prices']))
+        {
+            foreach( $historicalData['prices'] as $price )
+            {
+                $priceDate = date('Y-m-d', $price['date']);
+                if( $priceDate >= $startDate &&  $priceDate <= $endDate )
+                {
+                    $price['date'] = $priceDate;
+                    $filteredHistoricalData[] = $price;
+                }
+            }
+        }
+
+        return $filteredHistoricalData;
     }
 }

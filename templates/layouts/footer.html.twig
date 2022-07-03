@@ -50,12 +50,35 @@
 				endDate: endDate
 			},
 			success: function(response) {
-				console.log(response, 'success');
-			},
-			error: function(xhr) {
-				console.log(xhr, 'failure');
+				displayTabularResults(response);	
 			}
 		});
     }
     
+    function displayTabularResults(tableData)
+    {
+    	$('#search_results_table_div').show();
+    	$('#search_results_tbody').html('');
+    	
+    	if( jQuery.isEmptyObject(tableData[0]) )
+    	{
+    		$('#search_results_tbody').html('<tr><td colspan="6">No data found for your search</td></tr>');
+    	}
+
+    	tableData[0].forEach(function(obj) 
+        { 
+            var tableRow = `<tr>
+	            <td class="w-1/3 text-left py-3 px-4"> ${obj.date} </td>
+	            <td class="w-1/3 text-left py-3 px-4"> ${obj.open} </td>
+	            <td class="w-1/3 text-left py-3 px-4"> ${obj.high} </td>
+	            <td class="text-left py-3 px-4"> ${obj.low} </td>
+	            <td class="text-left py-3 px-4"> ${obj.close} </td>
+	            <td class="text-left py-3 px-4"> ${obj.volume} </td>
+	        </tr>`;
+
+            $('#search_results_tbody').append(tableRow);
+        });
+
+    }
+
 </script>
